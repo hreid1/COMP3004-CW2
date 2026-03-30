@@ -42,7 +42,17 @@
 
 - Dependencies
   - `sudo apt update`
-  - `sudo apt install apache2`
+  - `sudo apt upgrade -y`
+  - Mininet
+    - `sudo apt install -y mininet openvswitch-switch`
+    - `sudo apt install -y iperf net-tools curl`
+    - `sudo apt install -y python3-pip
+    - `pip3 install mininet`
+  - Apache
+    - `sudo apt-get install apache2`
+  - X264 and MP4Box
+    - `sudo apt-get install x264`
+    - `sudo apt-get install gpac`
   - `sudo apt install ansible`
 - Load Mininet
 - Load ODL VMs
