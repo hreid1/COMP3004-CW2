@@ -10,12 +10,25 @@
         cache_valid_time: 0
     - name: Install packages
       apt:
-        - mininet
-        - mininet openvswitch-switch
-        - iperf net-tools curl
-        - apache2
-        - x264
-        - gpac
-        - ansible
-        - ffmpeg
-        - unzip
+        name:
+          - mininet
+          - openvswitch-switch
+          - iperf
+          - net-tools
+          - curl
+          - apache2
+          - x264
+          - gpac
+          - ansible
+          - ffmpeg
+          - unzip
+        state: present
+    - name: Copying files
+      copy:
+        src: topo/
+        dest: "/home/test/topo/"
+    - name: Installing dash.js
+      unarchive:
+        src: topo/dashjs.zip
+        dest: /var/www/html/
+        remote_src: no
