@@ -22,11 +22,12 @@
           - ansible
           - ffmpeg
           - unzip
+          - firefox
         state: present
     - name: Copying files
       copy:
         src: topo/
-        dest: "/home/test/topo/"
+        dest: "/home/mininet/topo/"
     - name: Installing dash.js
       unarchive:
         src: topo/dashjs.zip
