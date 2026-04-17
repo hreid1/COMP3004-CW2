@@ -6,8 +6,7 @@
     - name: Update apt-get repo and cache 
       apt:
         update_cache: yes
-        upgrade: yes
-        cache_valid_time: 0
+        upgrade: dist 
     - name: Install packages
       apt:
         name:
@@ -22,12 +21,18 @@
           - ansible
           - ffmpeg
           - unzip
-          - firefox
         state: present
+    - name: Start Apache service
+      service:
+        name: apache2
+        state: started
+        enabled: yes
     - name: Copying files
       copy:
         src: topo/
         dest: "/home/mininet/topo/"
+        owner: mininet
+        group: mininet
     - name: Installing dash.js
       unarchive:
         src: topo/dashjs.zip

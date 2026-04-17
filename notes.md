@@ -4,7 +4,7 @@
 
 - Build up an SDN testbed in a VM (e.g. Ubuntu) to support HTTP video streaming and IoT traffic
   - Include the installation of the mininet (network emulator), Apache server, Dash.js player and support packages/dependencies
-- Automate the install (shell scripts) for the required software packages to be installed on a VM in order to build up the testbed
+- Automate the install (shell scripts or ansible) for the required software packages to be installed on a VM in order to build up the testbed
 - Install an SDN controller (e.g. Ryu or OpenDaylight) in another VM
 - Write python code to build up a network topology in mininet and connect it to an external SDN controller 
   - Should include three virtual switches in a line where two links are used to connect three virtual switches
