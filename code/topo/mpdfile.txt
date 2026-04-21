@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- MPD file Generated with GPAC version 2.0-rev2.0.0+dfsg1-2 at 2026-04-21T20:16:12.471Z -->
+<MPD xmlns="urn:mpeg:dash:schema:mpd:2011" minBufferTime="PT1.500S" type="static" mediaPresentationDuration="PT0H2M0.000S" maxSegmentDuration="PT0H0M4.000S" profiles="urn:mpeg:dash:profile:full:2011">
+ <Period duration="PT0H2M0.000S">
+  <AdaptationSet segmentAlignment="true" maxWidth="1280" maxHeight="720" maxFrameRate="30" par="16:9" lang="und" startWithSAP="1">
+   <Representation id="300k" mimeType="video/mp4" codecs="avc1.64001F" width="1280" height="720" frameRate="30" sar="1:1" bandwidth="300000">
+    <SegmentTemplate media="segment_300k_$Number$.m4s" initialization="segment_300k_init.mp4" timescale="1000" startNumber="1" duration="4000"/>
+   </Representation>
+   <Representation id="1200k" mimeType="video/mp4" codecs="avc1.64001F" width="1280" height="720" frameRate="30" sar="1:1" bandwidth="1200000">
+    <SegmentTemplate media="segment_1200k_$Number$.m4s" initialization="segment_1200k_init.mp4" timescale="1000" startNumber="1" duration="4000"/>
+   </Representation>
+   <Representation id="2400k" mimeType="video/mp4" codecs="avc1.64001F" width="1280" height="720" frameRate="30" sar="1:1" bandwidth="2400000">
+    <SegmentTemplate media="segment_2400k_$Number$.m4s" initialization="segment_2400k_init.mp4" timescale="1000" startNumber="1" duration="4000"/>
+   </Representation>
+  </AdaptationSet>
+ </Period>
+</MPD>
