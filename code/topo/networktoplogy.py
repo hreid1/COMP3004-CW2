@@ -13,9 +13,9 @@ def myNetwork():
 
     c0 = net.addController(name='c0', controller=RemoteController, ip='192.168.0.24', port=6633)
 
-    s1 = net.addSwitch('s1', cls=OVSKernelSwitch)
-    s2 = net.addSwitch('s2', cls=OVSKernelSwitch)
-    s3 = net.addSwitch('s3', cls=OVSKernelSwitch)
+    s1 = net.addSwitch('s1', cls=OVSKernelSwitch, protocols='OpenFlow13')
+    s2 = net.addSwitch('s2', cls=OVSKernelSwitch, protocols='OpenFlow13')
+    s3 = net.addSwitch('s3', cls=OVSKernelSwitch, protocols='OpenFlow13')
 
     h1 = net.addHost('h1', cls=Host, ip='10.0.0.1')
     h2 = net.addHost('h2', cls=Host, ip='10.0.0.2')
@@ -24,7 +24,10 @@ def myNetwork():
 
     net.addLink(h1, s1, cls=TCLink, bw=100, delay='1ms', loss=0)
     net.addLink(h2, s1, cls=TCLink, bw=100, delay='1ms', loss=0)
-    net.addLink(s1, s2, cls=TCLink, bw=100, delay='1ms', loss=0)
+
+    # Bottleneck link    
+    net.addLink(s1, s2, cls=TCLink, bw=1, delay='1ms', loss=0)
+
     net.addLink(s2, s3, cls=TCLink, bw=100, delay='1ms', loss=0)
     net.addLink(h3, s3, cls=TCLink, bw=100, delay='1ms', loss=0)
     net.addLink(h4, s3, cls=TCLink, bw=100, delay='1ms', loss=0)
@@ -32,6 +35,7 @@ def myNetwork():
     net.start()
 
     h1 = net.get('h1')
+    h1.cmd('apache2ctl -k stop')
     h1.cmd('apache2ctl -k start')
 
     CLI(net)
