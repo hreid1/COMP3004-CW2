@@ -1,0 +1,70 @@
+sh ovs-vsctl set Port s1-eth3 qos=@newqos -- --id=@newqos create QoS type=linux-htb other-config:max-rate=1000000
+sh ovs-vsctl set QoS s1-eth3 queues=0=@q0,1=@q1 -- --id=@q0 create Queue other-config:max-rate=400000 -- --id=@q1 create Queue other-config:min-rate=500000
+
+sh ovs-appctl qos/show s1-eth3
+
+IoT policy
+
+{
+  "flow": [
+    {
+      "id": "101",
+      "table_id": 0,
+      "priority": 1000,
+      "match": {
+        "ethernet-match": {
+          "ethernet-type": { "type": 2048 }
+        },
+        "ipv4-source": "10.0.0.2/32"
+      },
+      "instructions": {
+        "instruction": [
+          {
+            "order": 0,
+            "apply-actions": {
+              "action": [
+                {
+                  "order": 0,
+                  "set-queue-action": { "queue-id": 1 }
+                },
+                {
+                  "order": 1,
+                  "output-action": { "output-node-connector": "3" }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+
+Best effort video
+
+{
+  "flow": [
+    {
+      "id": "video-limit",
+      "table_id": 0,
+      "priority": 500,
+      "match": {
+        "ipv4-source": "10.0.0.1/8",
+        "ethernet-match": { "ethernet-type": { "type": 2048 } }
+      },
+      "instructions": {
+        "instruction": [
+          {
+            "order": 0,
+            "apply-actions": {
+              "action": [
+                { "order": 0, "set-queue-action": { "queue-id": 0 } },
+                { "order": 1, "output-action": { "output-node-connector": "3" } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
