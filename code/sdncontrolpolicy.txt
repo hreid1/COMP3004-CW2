@@ -5,17 +5,24 @@ sh ovs-appctl qos/show s1-eth3
 
 IoT policy
 
+http://192.168.0.78:8181/rests/data/opendaylight-inventory:nodes/node=openflow:1/flow-node-inventory:table=0/flow=1
+
 {
   "flow": [
     {
-      "id": "101",
+      "id": "1",
       "table_id": 0,
-      "priority": 1000,
+      "priority": 100,
       "match": {
         "ethernet-match": {
-          "ethernet-type": { "type": 2048 }
+          "ethernet-type": {
+            "type": 2048
+          }
         },
-        "ipv4-source": "10.0.0.2/32"
+        "ip-match": {
+          "ip-protocol": 17
+        },
+        "udp-destination-port": 8080
       },
       "instructions": {
         "instruction": [
@@ -25,11 +32,9 @@ IoT policy
               "action": [
                 {
                   "order": 0,
-                  "set-queue-action": { "queue-id": 1 }
-                },
-                {
-                  "order": 1,
-                  "output-action": { "output-node-connector": "3" }
+                  "output-action": {
+                    "output-node-connector": "NORMAL"
+                  }
                 }
               ]
             }
@@ -42,15 +47,24 @@ IoT policy
 
 Best effort video
 
+http://192.168.0.78:8181/rests/data/opendaylight-inventory:nodes/node=openflow:1/flow-node-inventory:table=0/flow=2
+
 {
   "flow": [
     {
-      "id": "video-limit",
+      "id": "2",
       "table_id": 0,
-      "priority": 500,
+      "priority": 50,
       "match": {
-        "ipv4-source": "10.0.0.1/8",
-        "ethernet-match": { "ethernet-type": { "type": 2048 } }
+        "ethernet-match": {
+          "ethernet-type": {
+            "type": 2048
+          }
+        },
+        "ip-match": {
+          "ip-protocol": 6
+        },
+        "tcp-destination-port": 80
       },
       "instructions": {
         "instruction": [
@@ -58,8 +72,12 @@ Best effort video
             "order": 0,
             "apply-actions": {
               "action": [
-                { "order": 0, "set-queue-action": { "queue-id": 0 } },
-                { "order": 1, "output-action": { "output-node-connector": "3" } }
+                {
+                  "order": 0,
+                  "output-action": {
+                    "output-node-connector": "NORMAL"
+                  }
+                }
               ]
             }
           }

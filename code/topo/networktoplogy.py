@@ -26,7 +26,7 @@ def myNetwork():
     net.addLink(h2, s1, cls=TCLink, bw=100, delay='1ms', loss=0)
 
     # Bottleneck link    
-    net.addLink(s1, s2, cls=TCLink, bw=1, delay='1ms', loss=0)
+    net.addLink(s1, s2, cls=TCLink, bw=10, delay='1ms', loss=0)
 
     net.addLink(s2, s3, cls=TCLink, bw=100, delay='1ms', loss=0)
     net.addLink(h3, s3, cls=TCLink, bw=100, delay='1ms', loss=0)
